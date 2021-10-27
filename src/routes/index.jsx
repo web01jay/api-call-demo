@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Header } from "../components/Header";
+import { AfterLogin } from "../pages/AfterLogin";
 import { Home } from "../pages/Home";
 import { Login } from "../pages/Login";
 
@@ -26,6 +27,9 @@ export default function App() {
           <Switch>
             <Route path="/login">
               <Login />
+            </Route>
+            <Route path="/after-login">
+              <AfterLogin />
             </Route>
             <Route path="/">
               <Home />
