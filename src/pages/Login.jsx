@@ -1,23 +1,19 @@
 import axios from "axios";
 import { useFormik } from "formik";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { loginSchema } from "../axios/helper";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from 'react-redux'
-import {setLoginAuthentication} from '../redux/actions/auth/auth.action';
+import { useDispatch, useSelector } from "react-redux";
+import { setLoginAuthentication } from "../redux/actions/auth/auth.action";
 
 export const Login = () => {
-
-  const history = useHistory()
+  const history = useHistory();
   const dispatch = useDispatch();
+  const isAuthenticate = useSelector((state) => state.isAuthenticate);
 
   // State declaration
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // useEffect(()=> {
-  //   toast("hello")
-  // }, [])
 
   const { handleSubmit, handleChange, values, errors, touched } = useFormik({
     initialValues: {
@@ -26,7 +22,7 @@ export const Login = () => {
     },
     validationSchema: loginSchema,
     async onSubmit(values) {
-      console.log(values, `values`);
+      // console.log(values, `values`);
       setIsSubmitting(true);
       axios
         .post(`https://reqres.in/api/login`, {
@@ -34,16 +30,17 @@ export const Login = () => {
           password: values.password,
         })
         .then(async (response) => {
-          console.log(response, `res`);
+          // console.log(response, `res`);
           if (response.data) {
             localStorage.setItem("access_token", response.data.token);
           }
-          dispatch(setLoginAuthentication(true))
+          dispatch(setLoginAuthentication(true));
           history.push("/after-login");
           setIsSubmitting(false);
+          console.log(isAuthenticate, `isAuthenticate`)
         })
         .catch((error) => {
-          console.log(error, `err`);
+          // console.log(error, `err`);
           toast.error("User not found", {
             position: "top-center",
             autoClose: 5000,
@@ -109,8 +106,12 @@ export const Login = () => {
             </button>
             <div className="d-block mt-3">
               <code>
-              <span className="text-center"> "email": "eve.holt@reqres.in"</span>
-              <span className="text-center"> "password": "cityslicka"</span>
+                <span className="text-center">
+                  "email": "<span>eve.holt@reqres.in</span>"
+                </span>
+                <span className="text-center">
+                  "password": "<span>cityslicka</span>"
+                </span>
               </code>
             </div>
           </form>

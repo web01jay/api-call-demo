@@ -11,6 +11,7 @@ export const Header = ({ ...props }) => {
   function logout(e) {
     e.preventDefault();
     dispatch(setLoginAuthentication(false));
+    localStorage.removeItem("access_token");
     history.push("/");
   }
   return (
