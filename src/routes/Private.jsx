@@ -1,19 +1,20 @@
-import React, { Suspense } from "react";
+import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
-export const Private = ({ component: Component, ...path }) => {
+export const Private = ({ component: Component, path, exact }) => {
   return (
     <>
       <Route
-        {...path}
+        path={path}
+        exact={exact}
         render={() => {
-            (localStorage.getItem('access_token') !== null && 
-                localStorage.getItem('access_token') !== undefined && 
-                localStorage.getItem('access_token') !== '') 
-                ? <Suspense fallback={<div>Component Loading</div>}>
-                        <Component />
-                    </Suspense> 
-                : <Redirect to='/login' />
+          return localStorage.getItem("access_token") !== null &&
+            localStorage.getItem("access_token") !== undefined &&
+            localStorage.getItem("access_token") !== "" ? (
+            <Component />
+          ) : (
+            <Redirect to="/login" />
+          );
         }}
       />
     </>

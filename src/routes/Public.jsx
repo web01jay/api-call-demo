@@ -9,11 +9,7 @@ export const Public = ({ component: Component, ...rest }) => {
       <Route
         {...rest}
         render={(props) => {
-          return (
-            <Suspense fallback={<div>Component Loading</div>}>
-              <Component {...props} />
-            </Suspense>
-          );
+          return <Component {...props} />;
         }}
       />
     </>

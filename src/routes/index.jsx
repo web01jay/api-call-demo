@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Switch, Route,BrowserRouter as Router } from "react-router-dom";
+import React, { useEffect, Suspense } from "react";
+import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import { Header } from "../components/Header";
 import { AfterLogin } from "../pages/AfterLogin";
 import { Home } from "../pages/Home";
@@ -26,21 +26,23 @@ export default function App() {
     <Router>
       <Header id="customHeader" className="custom-header" />
       <main className="main" id="main">
-        <Switch>
-          <Private path="after-login" component={AfterLogin} />
-          <PublicRoute path="/login" component={Login} />
-          <PublicRoute path={`*`} component={Page404} />
-          <PublicRoute path="/" component={Home} />
-          {/* <Route path="/login">
+        <Suspense fallback={<div>Component Loading</div>}>
+          <Switch>
+            <PublicRoute path="/login" component={Login} exact />
+            <Private path="/after-login" component={AfterLogin} exact />
+            <PublicRoute path="/" component={Home} exact />
+            <PublicRoute path={`*`} component={Page404} />
+            {/* <Route path="/login">
             <Login />
           </Route> */}
-          {/* <Route path="/after-login">
+            {/* <Route path="/after-login">
             <AfterLogin />
           </Route>
           <Route path="/">
             <Home />
           </Route> */}
-        </Switch>
+          </Switch>
+        </Suspense>
       </main>
     </Router>
   );
