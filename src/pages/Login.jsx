@@ -35,7 +35,7 @@ export const Login = () => {
             localStorage.setItem("access_token", response.data.token);
           }
           dispatch(setLoginAuthentication(true));
-          history.push("/after-login");
+          history.push("/users");
           setIsSubmitting(false);
           console.log(isAuthenticate, `isAuthenticate`)
         })

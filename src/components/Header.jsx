@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 
 export const Header = ({ ...props }) => {
   const isAuthenticate = useSelector((state) => state.isAuthenticate);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const history = useHistory();
   function logout(e) {
     e.preventDefault();
@@ -43,6 +43,15 @@ export const Header = ({ ...props }) => {
                     Home
                   </Link>
                 </li>
+                {isAuthenticate === true ? (
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/users">
+                      Users
+                    </Link>
+                  </li>
+                ) : (
+                  ""
+                )}
                 {isAuthenticate !== true ? (
                   <li className="nav-item">
                     <Link className="nav-link" to="/login">
@@ -51,7 +60,13 @@ export const Header = ({ ...props }) => {
                   </li>
                 ) : (
                   <li className="nav-item">
-                    <a className="nav-link" href="#!" onClick={(e)=>{logout(e)}}>
+                    <a
+                      className="nav-link"
+                      href="#!"
+                      onClick={(e) => {
+                        logout(e);
+                      }}
+                    >
                       Logout
                     </a>
                   </li>

@@ -1,10 +1,12 @@
-import React, { useEffect, Suspense } from "react";
-import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import React, { Suspense, useEffect } from "react";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
 import { Header } from "../components/Header";
-import { AfterLogin } from "../pages/AfterLogin";
 import { Home } from "../pages/Home";
 import { Login } from "../pages/Login";
 import Page404 from "../pages/Page404";
+import UserProfile from "../pages/UserProfile";
+import { Users } from "../pages/Users";
+import Posts from "../pages/Posts";
 import Private from "./Private";
 import PublicRoute from "./Public";
 
@@ -29,18 +31,13 @@ export default function App() {
         <Suspense fallback={<div>Component Loading</div>}>
           <Switch>
             <PublicRoute path="/login" component={Login} exact />
-            <Private path="/after-login" component={AfterLogin} exact />
+
+            <Private path="/users" component={Users} exact />
+            <Private path="/users/:id" component={UserProfile} exact />
+            <Private path="/users/:id/posts" component={Posts} exact />
+
             <PublicRoute path="/" component={Home} exact />
             <PublicRoute path={`*`} component={Page404} />
-            {/* <Route path="/login">
-            <Login />
-          </Route> */}
-            {/* <Route path="/after-login">
-            <AfterLogin />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route> */}
           </Switch>
         </Suspense>
       </main>
