@@ -37,7 +37,7 @@ export const Login = () => {
           dispatch(setLoginAuthentication(true));
           history.push("/users");
           setIsSubmitting(false);
-          console.log(isAuthenticate, `isAuthenticate`)
+          console.log(isAuthenticate, `isAuthenticate`);
         })
         .catch((error) => {
           // console.log(error, `err`);

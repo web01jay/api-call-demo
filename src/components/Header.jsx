@@ -44,11 +44,18 @@ export const Header = ({ ...props }) => {
                   </Link>
                 </li>
                 {isAuthenticate === true ? (
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/users">
-                      Users
-                    </Link>
-                  </li>
+                  <>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/users">
+                        Users
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/form-post">
+                        Form Post
+                      </Link>
+                    </li>
+                  </>
                 ) : (
                   ""
                 )}

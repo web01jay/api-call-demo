@@ -9,6 +9,7 @@ import { Users } from "../pages/Users";
 import Posts from "../pages/Posts";
 import Private from "./Private";
 import PublicRoute from "./Public";
+import FormPost from "../pages/FormPost";
 
 export default function App() {
   // Set minimum height of the main element
@@ -35,6 +36,7 @@ export default function App() {
             <Private path="/users" component={Users} exact />
             <Private path="/users/:id" component={UserProfile} exact />
             <Private path="/users/:id/posts" component={Posts} exact />
+            <Private path="/form-post" component={FormPost} exact />
 
             <PublicRoute path="/" component={Home} exact />
             <PublicRoute path={`*`} component={Page404} />
