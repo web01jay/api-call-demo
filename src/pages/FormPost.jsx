@@ -25,11 +25,10 @@ const FormPost = () => {
       console.log(values);
       axios
         .post("https://jsonplaceholder.typicode.com/posts", {
-          userId: "1",
+          userId: userId,
           id: "11",
-          title:
-            "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-          body: "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
+          title: postTitle,
+          body: postBody,
         })
         .then(function (response) {
           console.log(response);
@@ -43,7 +42,8 @@ const FormPost = () => {
 
   useEffect(() => {
     console.log(errors);
-  }, [errors]);
+    console.log(touched);
+  }, [errors,touched]);
 
   return (
     <>
@@ -71,6 +71,7 @@ const FormPost = () => {
                       }
                       name="userId"
                     />
+                    {errors.userId && touched.userId && <div>{errors.userId}</div>}
                   </div>
                 </div>
                 <div className="col-md-6">
@@ -78,6 +79,11 @@ const FormPost = () => {
                     <label htmlFor="postTitle">Post Title</label>
                     <input
                       type="text"
+                      onChange={(e) => {
+                        setFieldTouched("postTitle", true);
+                        handleChange(e);
+                      }}
+                      value={values.postTitle}
                       className={
                         (errors.postTitle && touched.postTitle
                           ? "input-error"
@@ -85,6 +91,7 @@ const FormPost = () => {
                       }
                       name="postTitle"
                     />
+                    {errors.postTitle && touched.postTitle && <div>{errors.postTitle}</div>}
                   </div>
                 </div>
                 <div className="col-md-8">
@@ -92,6 +99,11 @@ const FormPost = () => {
                     <label htmlFor="postBody">Post Body</label>
                     <textarea
                       type="text"
+                      onChange={(e) => {
+                        setFieldTouched("postBody", true);
+                        handleChange(e);
+                      }}
+                      value={values.postBody}
                       className={
                         (errors.postBody && touched.postBody
                           ? "input-error"
@@ -101,6 +113,7 @@ const FormPost = () => {
                     >
                       {" "}
                     </textarea>
+                    {errors.postBody && touched.postBody && <div>{errors.postBody}</div>}
                   </div>
                 </div>
               </div>
