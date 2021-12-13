@@ -20,22 +20,21 @@ const FormPost = () => {
       postBody: "",
     },
     validationSchema: formPostSchema,
-    onSubmit(values) {
+    async onSubmit(values) {
       setIsSubmitting(true);
-      console.log(values);
-      axios
-        .post("https://jsonplaceholder.typicode.com/posts", {
-          userId: userId,
-          id: "11",
-          title: postTitle,
-          body: postBody,
-        })
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      try{
+        console.log(values);
+        const r = await axios
+          .post("https://jsonplaceholder.typicode.com/posts", {
+            userId: values.userId,
+            title: values.postTitle,
+            body: values.postBody,
+          })
+          console.log(r)
+          alert("Data Posted Success fullllyyyyy ;) ")
+      } catch (e) {
+        console.log(e)
+      }
       setIsSubmitting(false);
     },
   });
