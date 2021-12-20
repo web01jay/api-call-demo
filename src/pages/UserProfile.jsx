@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
+import { getUserProfile } from "../axios/apiCalls";
 
 const UserProfile = () => {
   const [userDetail, setUserDetail] = useState([]);
@@ -9,18 +10,19 @@ const UserProfile = () => {
   const history = useHistory();
   console.log(id);
   useEffect(() => {
-    setIsLoading(true);
-    axios({
-      method: "get",
-      url: `https://jsonplaceholder.typicode.com/users/?id=${id}`,
-      responseType: "stream",
-    }).then(function (response) {
-      // console.log(response);
-      setUserDetail(response.data[0]);
-      console.log(response.data[0]);
-      setIsLoading(false);
-    });
+    getUserProfileData()
   }, []);
+  const getUserProfileData = async () => {
+    setIsLoading(true)
+    try {
+      const response = await getUserProfile()
+      setUserDetail(response.data[0]);
+      console.log(response.data[0])
+    } catch (e) {
+      console.log(e)
+    }
+    setIsLoading(false)
+  }
   return (
     <div className="container my-5">
       {isLoading === true ? (
