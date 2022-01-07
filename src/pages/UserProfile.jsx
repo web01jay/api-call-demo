@@ -15,9 +15,9 @@ const UserProfile = () => {
   const getUserProfileData = async () => {
     setIsLoading(true)
     try {
-      const response = await getUserProfile()
+      const response = await getUserProfile(id)
       setUserDetail(response.data[0]);
-      console.log(response.data[0])
+      console.log(response, "response")
     } catch (e) {
       console.log(e)
     }
@@ -27,28 +27,28 @@ const UserProfile = () => {
     <div className="container my-5">
       {isLoading === true ? (
         <p className="text-center my-5">Loading</p>
-      ) : (
-        <div className="card rounded text-start mb-3">
+      ) : (userDetail ? (<>
+            <div className="card rounded text-start mb-3">
           <div className="card-header">
-            <h5>{userDetail.name}</h5>
+            <h5>{userDetail?.name}</h5>
           </div>
           <div className="card-body">
             <div className="row">
               <div className="col-md-6">
                 <span className="font-weight-bold">User Name: </span>
-                <span>{userDetail.username}</span>
+                <span>{userDetail?.username}</span>
               </div>
               <div className="col-md-6">
                 <span className="font-weight-bold">Name: </span>
-                <span>{userDetail.name}</span>
+                <span>{userDetail?.name}</span>
               </div>
               <div className="col-md-6">
                 <span className="font-weight-bold">Email: </span>
-                <span>{userDetail.email}</span>
+                <span>{userDetail?.email}</span>
               </div>
               <div className="col-md-6">
                 <span className="font-weight-bold">Phone: </span>
-                <span>{userDetail.phone}</span>
+                <span>{userDetail?.phone}</span>
               </div>
               <div className="col-md-6">
                 <span className="font-weight-bold">Company: </span>
@@ -78,6 +78,9 @@ const UserProfile = () => {
             </button>
           </div>
         </div>
+        </>) : (<p>
+          No details Found.. :(
+        </p>)
       )}
     </div>
   );
